@@ -1,192 +1,142 @@
-class ParticleSystem {
-    constructor() {
-        this.particles = [];
-        this.connections = [];
-        this.mouseX = 0;
-        this.mouseY = 0;
-        this.container = document.createElement('div');
-        this.container.className = 'particle-container';
-        
-        // Add mouse light effect
-        this.mouseLight = document.createElement('div');
-        this.mouseLight.className = 'mouse-light';
-        this.container.appendChild(this.mouseLight);
-        
-        // Add to hero section
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            hero.appendChild(this.container);
-            this.width = hero.offsetWidth;
-            this.height = hero.offsetHeight;
-        }
-        
-        this.init();
-        this.setupEventListeners();
-        this.animate();
-    }
-    
-    init() {
-        // Create particles
-        for (let i = 0; i < 50; i++) {
-            this.createParticle();
-        }
-        
-        // Create particle clusters
-        for (let i = 0; i < 3; i++) {
-            this.createParticleCluster();
-        }
-    }
-    
-    createParticle() {
-        const particle = {
-            element: document.createElement('div'),
-            x: Math.random() * this.width,
-            y: Math.random() * this.height,
-            speedX: (Math.random() - 0.5) * 2,
-            speedY: (Math.random() - 0.5) * 2,
-            size: Math.random() * 3 + 2
-        };
-        
-        particle.element.className = 'particle';
-        particle.element.style.width = particle.size + 'px';
-        particle.element.style.height = particle.size + 'px';
-        
-        this.container.appendChild(particle.element);
-        this.particles.push(particle);
-    }
-    
-    createParticleCluster() {
-        const cluster = document.createElement('div');
-        cluster.className = 'particle-cluster';
-        
-        // Add particles to cluster
-        for (let i = 0; i < 5; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            cluster.appendChild(particle);
-        }
-        
-        cluster.style.left = Math.random() * (this.width - 100) + 'px';
-        cluster.style.top = Math.random() * (this.height - 100) + 'px';
-        
-        this.container.appendChild(cluster);
-    }
-    
-    createConnection(p1, p2) {
-        const dx = p2.x - p1.x;
-        const dy = p2.y - p1.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 150) {
-            const connection = document.createElement('div');
-            connection.className = 'connection-line';
-            connection.style.width = distance + 'px';
-            connection.style.left = p1.x + 'px';
-            connection.style.top = p1.y + 'px';
-            connection.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
-            connection.style.opacity = (1 - distance / 150) * 0.5;
-            
-            this.container.appendChild(connection);
-            this.connections.push(connection);
-            
-            // Remove connection after animation
-            setTimeout(() => {
-                this.container.removeChild(connection);
-                this.connections = this.connections.filter(c => c !== connection);
-            }, 200);
-        }
-    }
-    
-    setupEventListeners() {
-        window.addEventListener('resize', () => {
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                this.width = hero.offsetWidth;
-                this.height = hero.offsetHeight;
-            }
-        });
-        
-        this.container.addEventListener('mousemove', (e) => {
-            const rect = this.container.getBoundingClientRect();
-            this.mouseX = e.clientX - rect.left;
-            this.mouseY = e.clientY - rect.top;
-            
-            // Update mouse light position
-            this.mouseLight.style.left = this.mouseX + 'px';
-            this.mouseLight.style.top = this.mouseY + 'px';
-            
-            // Create particle trail
-            this.createTrailParticle(this.mouseX, this.mouseY);
-        });
-        
-        this.container.addEventListener('mouseleave', () => {
-            this.mouseX = null;
-            this.mouseY = null;
-        });
-    }
-    
-    createTrailParticle(x, y) {
-        const trail = document.createElement('div');
-        trail.className = 'particle trail';
-        trail.style.left = x + 'px';
-        trail.style.top = y + 'px';
-        
-        this.container.appendChild(trail);
-        
-        // Remove trail particle after animation
-        setTimeout(() => {
-            this.container.removeChild(trail);
-        }, 1000);
-    }
-    
-    updateParticles() {
-        this.particles.forEach(particle => {
-            // Update position
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-            
-            // Bounce off walls
-            if (particle.x <= 0 || particle.x >= this.width) particle.speedX *= -1;
-            if (particle.y <= 0 || particle.y >= this.height) particle.speedY *= -1;
-            
-            // Keep particles within bounds
-            particle.x = Math.max(0, Math.min(this.width, particle.x));
-            particle.y = Math.max(0, Math.min(this.height, particle.y));
-            
-            // Mouse interaction
-            if (this.mouseX !== null && this.mouseY !== null) {
-                const dx = this.mouseX - particle.x;
-                const dy = this.mouseY - particle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 100) {
-                    const force = (100 - distance) / 100;
-                    particle.x -= dx * force * 0.05;
-                    particle.y -= dy * force * 0.05;
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#00c853"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00c853",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": true,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
                 }
-            }
-            
-            // Update particle position
-            particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 0.8
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
         });
-        
-        // Create connections between nearby particles
-        for (let i = 0; i < this.particles.length; i++) {
-            for (let j = i + 1; j < this.particles.length; j++) {
-                this.createConnection(this.particles[i], this.particles[j]);
-            }
-        }
     }
-    
-    animate() {
-        this.updateParticles();
-        requestAnimationFrame(() => this.animate());
+});
+
+// Performance optimization
+window.addEventListener('resize', () => {
+    if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+        pJSDom[0].pJS.fn.vendors.destroypJS();
+        window.cancelAnimationFrame(pJSDom[0].pJS.fn.drawAnimFrame);
+        particlesJS('particles-js');
+    }
+});
+
+// Reduce particle movement on mobile
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 30 },
+                move: { speed: 1.5 },
+                line_linked: { distance: 150 }
+            }
+        });
     }
 }
 
-// Initialize particle system
-window.addEventListener('load', () => {
-    new ParticleSystem();
+// Handle visibility change to pause/resume animation
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+            window.cancelAnimationFrame(pJSDom[0].pJS.fn.drawAnimFrame);
+        }
+    } else {
+        if (typeof pJSDom !== 'undefined' && pJSDom.length > 0) {
+            pJSDom[0].pJS.fn.vendors.draw();
+        }
+    }
 });
+
+// Optimize canvas rendering
+const canvas = document.querySelector('#particles-js canvas');
+if (canvas) {
+    canvas.style.transform = 'translateZ(0)';
+    canvas.style.backfaceVisibility = 'hidden';
+    canvas.style.perspective = '1000px';
+}

@@ -1,255 +1,126 @@
-/* Particle Container */
+/* Particles Container */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.95), rgba(26, 26, 26, 0.95));
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    pointer-events: none;
+}
+
+/* Particle Canvas */
+#particles-js canvas {
+    display: block;
+    vertical-align: bottom;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Container for sections with particles */
+.particle-section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Performance optimizations */
 .particle-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     z-index: 0;
     pointer-events: none;
 }
 
-/* Individual Particles */
-.particle {
-    position: absolute;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.3;
-    transition: transform 0.3s ease;
-}
-
-/* Particle Sizes */
-.particle:nth-child(3n) {
-    width: 3px;
-    height: 3px;
-}
-
-.particle:nth-child(3n+1) {
-    width: 4px;
-    height: 4px;
-}
-
-.particle:nth-child(3n+2) {
-    width: 5px;
-    height: 5px;
-}
-
-/* Particle Animation Delays */
-.particle:nth-child(2n) {
-    animation-delay: -1s;
-}
-
-.particle:nth-child(3n) {
-    animation-delay: -2s;
-}
-
-.particle:nth-child(4n) {
-    animation-delay: -3s;
-}
-
-/* Particle Lines */
-.particle-line {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg, 
-        rgba(37, 99, 235, 0),
-        rgba(37, 99, 235, 0.3),
-        rgba(37, 99, 235, 0)
-    );
-    transform-origin: left center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Mouse Interaction Effects */
-.particle-container.active .particle {
-    transition: transform 0.5s ease;
-}
-
-.particle-container.active .particle-line {
-    opacity: 0.2;
-}
-
-/* Particle Glow Effect */
-.particle::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    border-radius: 50%;
-    filter: blur(2px);
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0.3;
-    z-index: -1;
-}
-
-/* Particle Movement Animations */
-@keyframes floatUpDown {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes floatLeftRight {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(20px);
-    }
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Apply Different Animations to Particles */
-.particle:nth-child(4n) {
-    animation: floatUpDown 4s ease-in-out infinite;
-}
-
-.particle:nth-child(4n+1) {
-    animation: floatLeftRight 6s ease-in-out infinite;
-}
-
-.particle:nth-child(4n+2) {
-    animation: rotate 8s linear infinite;
-}
-
-.particle:nth-child(4n+3) {
-    animation: floatUpDown 5s ease-in-out infinite,
-               floatLeftRight 7s ease-in-out infinite;
-}
-
-/* Particle Density Control */
+/* Mobile optimizations */
 @media (max-width: 768px) {
-    .particle:nth-child(3n) {
+    #particles-js {
+        opacity: 0.5;
+    }
+}
+
+/* Reduce particles on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+    #particles-js {
         display: none;
     }
 }
 
-/* Interactive Hover Effects */
-.hero:hover .particle {
-    animation-play-state: paused;
+/* Hardware acceleration */
+#particles-js,
+#particles-js canvas,
+.particle-container {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
 }
 
-.hero:hover .particle-line {
-    opacity: 0.3;
-}
-
-/* Particle Trail Effect */
-.particle.trail {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: var(--primary);
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0;
-    animation: fadeOut 1s ease-out forwards;
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 0.5;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(2);
-    }
-}
-
-/* Particle Connection Lines */
-.connection-line {
-    position: absolute;
-    height: 1px;
-    background: linear-gradient(90deg,
-        rgba(37, 99, 235, 0),
-        rgba(37, 99, 235, 0.2),
-        rgba(37, 99, 235, 0)
-    );
-    transform-origin: left center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-/* Mouse Light Effect */
-.mouse-light {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(
-        circle,
-        rgba(37, 99, 235, 0.1),
-        transparent 70%
-    );
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
-
-/* Particle Clusters */
-.particle-cluster {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    pointer-events: none;
-    animation: clusterFloat 10s ease-in-out infinite;
-}
-
-@keyframes clusterFloat {
-    0%, 100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-        transform: translate(50px, 25px) rotate(90deg);
-    }
-    50% {
-        transform: translate(0, 50px) rotate(180deg);
-    }
-    75% {
-        transform: translate(-50px, 25px) rotate(270deg);
-    }
-}
-
-/* Enhanced Glow Effects */
-.glow-effect {
+/* Ensure content stays above particles */
+.particle-content {
     position: relative;
+    z-index: 2;
 }
 
-.glow-effect::before {
-    content: '';
+/* Particle overlay for better text contrast */
+.particle-overlay {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: radial-gradient(
-        circle at center,
-        rgba(37, 99, 235, 0.2),
-        transparent 70%
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(18, 18, 18, 0.7),
+        rgba(18, 18, 18, 0.3)
     );
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.glow-effect:hover::before {
-    opacity: 1;
+/* Particle animations */
+@keyframes particle-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#particles-js {
+    animation: particle-fade 1s ease-out;
+}
+
+/* Ensure particles don't interfere with text selection */
+#particles-js,
+#particles-js canvas,
+.particle-container,
+.particle-overlay {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Hero section specific particle styles */
+.hero #particles-js {
+    background: transparent;
+}
+
+/* Section specific particle styles */
+section #particles-js {
+    opacity: 0.5;
+    mix-blend-mode: screen;
 }

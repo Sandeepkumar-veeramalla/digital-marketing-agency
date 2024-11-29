@@ -1,117 +1,169 @@
-// Interactive hover effects for service cards
-document.querySelectorAll('.service-card').forEach(card => {
-    const content = card.innerHTML;
-    const icon = card.querySelector('i');
-    
-    // Add magnetic effect
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const deltaX = (x - centerX) / centerX;
-        const deltaY = (y - centerY) / centerY;
-        
-        card.style.transform = `
-            perspective(1000px)
-            rotateX(${deltaY * 10}deg)
-            rotateY(${deltaX * 10}deg)
-            translateZ(20px)
-        `;
-        
-        // Move icon with enhanced depth
-        if (icon) {
-            icon.style.transform = `
-                translate(${deltaX * 20}px, ${deltaY * 20}px)
-                scale(1.1)
-            `;
-        }
-        
-        // Adjust glow effect
-        card.style.setProperty('--glow-x', `${x}px`);
-        card.style.setProperty('--glow-y', `${y}px`);
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        if (icon) {
-            icon.style.transform = '';
-        }
-    });
-});
-
-// Portfolio items interaction
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    item.addEventListener('mousemove', (e) => {
-        const rect = item.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        
-        // Update custom properties for gradient effect
-        item.style.setProperty('--mouse-x', x);
-        item.style.setProperty('--mouse-y', y);
-        
-        // Tilt effect
-        const rotateX = (y - 0.5) * 20;
-        const rotateY = (x - 0.5) * 20;
-        
-        item.style.transform = `
-            perspective(1000px)
-            rotateX(${-rotateX}deg)
-            rotateY(${rotateY}deg)
-            scale(1.02)
-        `;
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        item.style.transform = '';
-    });
-});
-
-// Title glow effect on hover
-document.querySelectorAll('.title-glow').forEach(title => {
-    title.addEventListener('mouseenter', () => {
-        title.classList.add('glow-active');
-    });
-    
-    title.addEventListener('mouseleave', () => {
-        title.classList.remove('glow-active');
-    });
-});
-
-// Button hover effects
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('mouseenter', () => {
-        button.style.transform = 'translateY(-2px)';
-    });
-    
-    button.addEventListener('mouseleave', () => {
-        button.style.transform = 'translateY(0)';
-    });
-});
-
-// Form input animations
-document.querySelectorAll('.form-group').forEach(group => {
-    const input = group.querySelector('input, textarea, select');
-    const label = group.querySelector('label');
-    
-    if (input && label) {
-        input.addEventListener('focus', () => {
-            label.classList.add('active');
-        });
-        
-        input.addEventListener('blur', () => {
-            if (!input.value) {
-                label.classList.remove('active');
-            }
-        });
-        
-        // Check initial state
-        if (input.value) {
-            label.classList.add('active');
-        }
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize custom cursor on non-mobile devices
+    if (!isMobile()) {
+        initCustomCursor();
     }
 });
+
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function initCustomCursor() {
+    // Create cursor elements
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    document.body.appendChild(cursorDot);
+
+    // Cursor state
+    let cursorVisible = true;
+    let cursorEnlarged = false;
+
+    // Mouse position with smooth interpolation
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    // Animation settings
+    const ease = 0.15;
+    let rafId = null;
+
+    // Update cursor position with debouncing
+    const updateCursor = (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    };
+
+    // Smooth animation loop
+    function animate() {
+        // Calculate smooth movement
+        const dx = mouseX - currentX;
+        const dy = mouseY - currentY;
+        
+        currentX += dx * ease;
+        currentY += dy * ease;
+
+        if (cursorVisible) {
+            cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale(${cursorEnlarged ? 1.5 : 1})`;
+            cursorDot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        }
+
+        rafId = requestAnimationFrame(animate);
+    }
+
+    // Start animation
+    animate();
+
+    // Event listeners with performance optimization
+    document.addEventListener('mousemove', updateCursor, { passive: true });
+
+    document.addEventListener('mouseenter', () => {
+        cursorVisible = true;
+        cursor.style.opacity = 1;
+        cursorDot.style.opacity = 1;
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursorVisible = false;
+        cursor.style.opacity = 0;
+        cursorDot.style.opacity = 0;
+    });
+
+    // Optimize hover effects for interactive elements
+    const clickables = document.querySelectorAll(
+        'a, button, .service-card, .portfolio-item, .social-links a, input, textarea, select, .btn, .logo'
+    );
+
+    clickables.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursorEnlarged = true;
+            requestAnimationFrame(() => {
+                cursor.classList.add('hover');
+                cursorDot.classList.add('hover');
+            });
+        });
+
+        element.addEventListener('mouseleave', () => {
+            cursorEnlarged = false;
+            requestAnimationFrame(() => {
+                cursor.classList.remove('hover');
+                cursorDot.classList.remove('hover');
+            });
+        });
+    });
+
+    // Handle cursor visibility on click
+    document.addEventListener('mousedown', () => {
+        requestAnimationFrame(() => {
+            cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(0.8)`;
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(0.8)`;
+        });
+    });
+
+    document.addEventListener('mouseup', () => {
+        requestAnimationFrame(() => {
+            cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(1)`;
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(1)`;
+        });
+    });
+
+    // Handle page visibility
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            cancelAnimationFrame(rafId);
+        } else {
+            rafId = requestAnimationFrame(animate);
+        }
+    });
+
+    // Add cursor styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: opacity 0.15s ease-out;
+            z-index: 9999;
+            will-change: transform;
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: opacity 0.15s ease-out;
+            z-index: 9999;
+            will-change: transform;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(1.5);
+            background-color: rgba(0, 200, 83, 0.1);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot.hover {
+            transform: scale(0.5);
+        }
+
+        @media (max-width: 768px) {
+            .custom-cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}

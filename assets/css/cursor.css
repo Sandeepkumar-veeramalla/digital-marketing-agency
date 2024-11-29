@@ -1,34 +1,112 @@
-/* Remove custom cursor styles */
-body {
-    cursor: default !important;
+/* Custom Cursor Styles */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform-origin: center center;
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    mix-blend-mode: difference;
 }
 
-.custom-cursor,
-.cursor-trail,
-.mouse-light {
-    display: none !important;
+.cursor-dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    mix-blend-mode: difference;
 }
 
-/* Keep other interactive hover effects */
-.btn:hover,
-.service-card:hover,
-.portfolio-item:hover {
-    cursor: pointer;
+/* Hover Effects */
+.custom-cursor.hover {
+    transform: scale(1.5);
+    background-color: rgba(0, 200, 83, 0.1);
+    border-color: rgba(0, 200, 83, 0.8);
+    box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
 }
 
-/* Keep link hover effects */
+.cursor-dot.hover {
+    transform: scale(0.5);
+    box-shadow: 0 0 10px rgba(0, 200, 83, 0.5);
+}
+
+/* Interactive Element Hover States */
 a:hover,
-button:hover {
-    cursor: pointer;
+button:hover,
+.service-card:hover,
+.portfolio-item:hover,
+.social-links a:hover,
+input:hover,
+textarea:hover,
+select:hover,
+.btn:hover,
+.logo:hover {
+    cursor: none;
 }
 
-/* Form element cursors */
-input, 
-textarea, 
-select {
-    cursor: text;
+/* Performance Optimizations */
+.custom-cursor,
+.cursor-dot {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
 }
 
-select {
-    cursor: pointer;
+/* Hardware Acceleration */
+.custom-cursor,
+.cursor-dot {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+}
+
+/* Smooth Movement */
+.custom-cursor,
+.cursor-dot {
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+/* Hide on Mobile */
+@media (max-width: 768px), (hover: none) {
+    .custom-cursor,
+    .cursor-dot {
+        display: none;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .custom-cursor,
+    .cursor-dot {
+        transition: none !important;
+        animation: none !important;
+    }
 }
