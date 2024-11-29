@@ -1,0 +1,34 @@
+/* Remove custom cursor styles */
+body {
+    cursor: default !important;
+}
+
+.custom-cursor,
+.cursor-trail,
+.mouse-light {
+    display: none !important;
+}
+
+/* Keep other interactive hover effects */
+.btn:hover,
+.service-card:hover,
+.portfolio-item:hover {
+    cursor: pointer;
+}
+
+/* Keep link hover effects */
+a:hover,
+button:hover {
+    cursor: pointer;
+}
+
+/* Form element cursors */
+input, 
+textarea, 
+select {
+    cursor: text;
+}
+
+select {
+    cursor: pointer;
+}
