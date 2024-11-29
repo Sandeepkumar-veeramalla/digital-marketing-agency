@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # DigiTech Solutions - Digital Marketing Agency Website
 
 A modern, responsive website for a digital marketing agency featuring interactive animations and dynamic content.
@@ -145,3 +146,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 >>>>>>> c756188a9831a0c55fe68fb20b0638d3fbd21374
+=======
+# digital-marketing-agency
+>>>>>>> 4c5afd9b10db35079e1237cde62445f6de1d2cc5
