@@ -3,210 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DigiTech Solutions - Digital Marketing Agency</title>
-    <base href="/digital-marketing-agency/">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
-    <link rel="stylesheet" href="assets/css/particles.css">
-    <script src="assets/js/particles.js" defer></script>
-    <script src="assets/js/script.js" defer></script>
+    <title>DigiTech Solutions - Digital Marketing & Development Services</title>
+    <meta name="description" content="Professional digital marketing and development services including website development, app creation, QR solutions, and social media marketing.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/particles.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
-        }
-
-        .header {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px 0;
+        /* Welcome Animation */
+        .welcome-animation {
             position: fixed;
-            width: 100%;
             top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .logo {
-            color: #4CAF50;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #4CAF50;
-        }
-
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            z-index: 1;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #4CAF50;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            color: #ffffff;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .cta-button:hover {
-            background-color: #388E3C;
-            transform: scale(1.05);
-        }
-
-        .services {
-            padding: 80px 20px;
-            background: #222222;
-        }
-
-        .services-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: #333333;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .service-card h3 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-        }
-
-        .service-card p {
-            color: #cccccc;
-        }
-
-        #particles-js {
-            position: absolute;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent;
-            z-index: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            animation: fadeOut 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        .welcome-message {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
         }
     </style>
+    <script>
+        window.onload = function() {
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'welcome-animation';
+            welcomeDiv.innerHTML = '<div class="welcome-message">Welcome to DigiTech Solutions!</div>';
+            document.body.appendChild(welcomeDiv);
+        };
+    </script>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#" class="logo">DigiTech Solutions</a>
-            <div class="nav-links">
-                <a href="#services">Services</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </nav>
-    </header>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="logo" role="banner">
+            <span class="title-glow">Digi</span><span class="title-glow">Tech</span>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="menu-btn" aria-label="Toggle navigation menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+    </nav>
 
-    <section class="hero">
-        <div id="particles-js"></div>
+    <!-- Hero Section -->
+    <section id="home" class="hero" role="region" aria-label="Welcome section" style="background-image: url('path/to/your/background-image.jpg');">
+        <div class="particle-container"></div>
         <div class="hero-content">
-            <h1>Transform Your Digital Presence</h1>
-            <p>We help businesses grow through innovative digital marketing strategies and cutting-edge solutions.</p>
-            <a href="#contact" class="cta-button">Get Started</a>
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <div class="services-container">
-            <div class="service-card">
-                <h3>Social Media Marketing</h3>
-                <p>Engage with your audience and build brand awareness through strategic social media campaigns.</p>
-            </div>
-            <div class="service-card">
-                <h3>SEO Optimization</h3>
-                <p>Improve your search engine rankings and drive organic traffic to your website.</p>
-            </div>
-            <div class="service-card">
-                <h3>Content Marketing</h3>
-                <p>Create compelling content that resonates with your target audience and drives conversions.</p>
+            <h1 class="title-glow">Elevate Your Digital Presence</h1>
+            <p class="reveal fade-bottom">Innovative solutions for your business growth in the digital world. We specialize in website development, mobile apps, QR solutions, and social media marketing.</p>
+            <div class="cta-buttons reveal fade-bottom">
+                <a href="#services" class="btn primary">Explore Our Services</a>
+                <a href="#contact" class="btn secondary">Get Started Today</a>
             </div>
         </div>
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80 },
-                    color: { value: '#4CAF50' },
-                    shape: { type: 'circle' },
-                    opacity: { value: 0.5 },
-                    size: { value: 3 },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: '#4CAF50',
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 6
-                    }
-                }
-            });
-        });
-    </script>
+    <!-- Services Section -->
+    <section id="services" class="services" role="region" aria-label="Our services">
+        <h2 class="title-glow reveal fade-bottom">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card reveal fade-left" data-tilt data-tilt-max="10">
+                <img src="https://source.unsplash.com/600x400/?website-development" alt="" class="service-image" loading="lazy">
+                <div class="service-icon">
+                    <i class="fas fa-globe" aria-hidden="true"></i>
+                </div>
+                <h3 class="title-glow">Website Development</h3>
+                <p>Custom-built responsive websites that drive results and enhance your online presence.</p>
+            </div>
+            <div class="service-card reveal fade-bottom" data-tilt data-tilt-max="10">
+                <img src="https://source.unsplash.com/600x400/?mobile-app-development" alt="" class="service-image" loading="lazy">
+                <div class="service-icon">
+                    <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                </div>
+                <h3 class="title-glow">App Development</h3>
+                <p>Native and cross-platform mobile applications tailored to your business needs.</p>
+            </div>
+            <div class="service-card reveal fade-right" data-tilt data-tilt-max="10">
+                <img src="https://source.unsplash.com/600x400/?qr-code" alt="" class="service-image" loading="lazy">
+                <div class="service-icon">
+                    <i class="fas fa-qrcode" aria-hidden="true"></i>
+                </div>
+                <h3 class="title-glow">QR Solutions</h3>
+                <p>Dynamic QR codes for seamless digital integration and customer engagement.</p>
+            </div>
+            <div class="service-card reveal fade-bottom" data-tilt data-tilt-max="10">
+                <img src="https://source.unsplash.com/600x400/?social-media-marketing" alt="" class="service-image" loading="lazy">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn" aria-hidden="true"></i>
+                </div>
+                <h3 class="title-glow">Social Media Marketing</h3>
+                <p>Strategic social media management and growth strategies for your brand.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio" role="region" aria-label="Our portfolio">
+        <h2 class="title-glow reveal fade-bottom">Our Work</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item reveal fade-left" data-tilt data-tilt-max="5">
+                <img src="https://source.unsplash.com/600x400/?ecommerce" alt="E-Commerce Website Project" class="portfolio-image" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3 class="title-glow">E-Commerce Website</h3>
+                    <p>Full-stack development with modern technologies</p>
+                </div>
+            </div>
+            <div class="portfolio-item reveal fade-bottom" data-tilt data-tilt-max="5">
+                <img src="https://source.unsplash.com/600x400/?food-delivery-app" alt="Food Delivery App Project" class="portfolio-image" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3 class="title-glow">Food Delivery App</h3>
+                    <p>iOS & Android Development</p>
+                </div>
+            </div>
+            <div class="portfolio-item reveal fade-right" data-tilt data-tilt-max="5">
+                <img src="https://source.unsplash.com/600x400/?digital-marketing" alt="Social Media Campaign" class="portfolio-image" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3 class="title-glow">Social Media Campaign</h3>
+                    <p>Digital Marketing Strategy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about" role="region" aria-label="About us">
+        <h2 class="title-glow reveal fade-bottom">About Us</h2>
+        <div class="about-content">
+            <div class="about-text reveal fade-left">
+                <p>We are a team of passionate digital experts committed to delivering innovative solutions that help businesses thrive in the digital age. With years of experience and a customer-first approach, we ensure your success in the digital world.</p>
+            </div>
+            <div class="stats reveal fade-right">
+                <div class="stat-item" data-count="184">
+                    <h3 class="title-glow">0+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item" data-count="156">
+                    <h3 class="title-glow">0+</h3>
+                    <p>Happy Clients</p>
+                </div>
+                <div class="stat-item" data-count="12">
+                    <h3 class="title-glow">0+</h3>
+                    <p>Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact" role="region" aria-label="Contact us">
+        <h2 class="title-glow reveal fade-bottom">Get In Touch</h2>
+        <div class="contact-container">
+            <form class="contact-form reveal fade-left" aria-label="Contact form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder=" " required>
+                    <label for="name">Your Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Your Email</label>
+                </div>
+                <div class="form-group">
+                    <select id="service" name="service" required>
+                        <option value="">Choose a service</option>
+                        <option value="website">Website Development</option>
+                        <option value="app">App Development</option>
+                        <option value="qr">QR Solutions</option>
+                        <option value="social">Social Media Marketing</option>
+                    </select>
+                    <label for="service">Select Service</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder=" " required></textarea>
+                    <label for="message">Your Message</label>
+                </div>
+                <button type="submit" class="btn primary">
+                    <span>Send Message</span>
+                    <div class="loading-animation">
+                        <div></div><div></div><div></div><div></div>
+                    </div>
+                </button>
+            </form>
+            <div class="contact-info reveal fade-right">
+                <div class="info-item">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <p>contact@digitech.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i>
+                    <p>123 Digital Street, Tech City, TC 12345</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="title-glow">DigiTech Solutions</h3>
+                <p>Transforming businesses through digital innovation</p>
+                <div class="social-links" aria-label="Social media links">
+                    <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Visit our Twitter page"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Visit our LinkedIn page"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Visit our Instagram page"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3 class="title-glow">Quick Links</h3>
+                <nav aria-label="Footer quick links">
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+            <div class="footer-section">
+                <h3 class="title-glow">Services</h3>
+                <nav aria-label="Footer services links">
+                    <a href="#services">Website Development</a>
+                    <a href="#services">App Development</a>
+                    <a href="#services">QR Solutions</a>
+                    <a href="#services">Social Media Marketing</a>
+                </nav>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 DigiTech Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
+</content>
+</edit_file>
