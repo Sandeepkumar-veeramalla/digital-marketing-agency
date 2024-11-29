@@ -3,79 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to DigiTech Solutions</title>
+    <title>DigiTech Solutions - Digital Marketing Agency</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/particles.css">
+    <script src="assets/js/particles.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
     <style>
         body {
-            background: url('assets/images/background.jpg') no-repeat center center fixed; /* Graphic background */
-            background-size: cover; /* Cover the entire viewport */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            font-family: 'Roboto', sans-serif; /* Modern font */
-            position: relative;
-            filter: brightness(1.1); /* Increase brightness */
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
         }
-        .overlay {
-            position: absolute;
+
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
             top: 0;
-            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #4CAF50;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #4CAF50;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+
+        .services {
+            padding: 80px 20px;
+            background: #222222;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #333333;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-card h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #cccccc;
+        }
+
+        #particles-js {
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: rgb(0, 0, 0); /* Darker overlay for better visibility */
-        }
-        .welcome-message {
-            position: relative;
-            font-size: 3.5rem;
-            color: #4CAF50; /* Dark green color */
-            animation: fadeIn 2s, slideIn 2s forwards;
-            text-decoration: none; /* Remove underline */
-        }
-        .tagline {
-            position: relative;
-            font-size: 1.5rem; /* Increased font size */
-            color: #ffffff; /* White for contrast */
-            margin-top: 20px; /* Increased space after tagline */
-            margin-bottom: 30px; /* Added space below tagline */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Shadow for better readability */
-            font-weight: bold; /* Make the tagline bold */
-        }
-        .continue-button {
-            position: relative;
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            color: white;
-            background-color: #4CAF50; /* Dark green button color */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s; /* Added transform for hover effect */
-            text-decoration: none; /* Remove underline */
-        }
-        .continue-button:hover {
-            background-color: #388E3C; /* Darker shade on hover */
-            transform: scale(1.05); /* Slightly enlarge button on hover */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            background-color: transparent;
+            z-index: 0;
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <div>
-        <div class="welcome-message">Welcome to DigiTech Solutions!</div>
-        <div class="tagline">Your journey to elevate your digital presence starts here.</div>
-        <a href="index.html" class="continue-button">Continue to Our Services</a>
-    </div>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">DigiTech Solutions</a>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Transform Your Digital Presence</h1>
+            <p>We help businesses grow through innovative digital marketing strategies and cutting-edge solutions.</p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="services-container">
+            <div class="service-card">
+                <h3>Social Media Marketing</h3>
+                <p>Engage with your audience and build brand awareness through strategic social media campaigns.</p>
+            </div>
+            <div class="service-card">
+                <h3>SEO Optimization</h3>
+                <p>Improve your search engine rankings and drive organic traffic to your website.</p>
+            </div>
+            <div class="service-card">
+                <h3>Content Marketing</h3>
+                <p>Create compelling content that resonates with your target audience and drives conversions.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80 },
+                    color: { value: '#4CAF50' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5 },
+                    size: { value: 3 },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#4CAF50',
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 6
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
