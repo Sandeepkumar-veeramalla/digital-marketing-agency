@@ -1,3 +1,24 @@
+# Site settings
 title: DigiTech Solutions
-description: Professional digital marketing and development services.
-theme: jekyll-theme-slate
+description: Your Digital Marketing Partner
+baseurl: "/digital-marketing-agency"
+url: "https://sandeepkumar-veeramalla.github.io"
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git/
+  - .github/
+  - README.md
+  - SECURITY.md
+  - LICENSE
