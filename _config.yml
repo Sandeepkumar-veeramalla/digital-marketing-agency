@@ -6,10 +6,12 @@ url: "https://sandeepkumar-veeramalla.github.io"
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-cayman
+remote_theme: pages-themes/cayman@v0.2.0
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-remote-theme
 
 # Exclude from processing
 exclude:
@@ -22,3 +24,22 @@ exclude:
   - README.md
   - SECURITY.md
   - LICENSE
+
+# Default layout
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Sass settings
+sass:
+  style: compressed
