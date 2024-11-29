@@ -1,8 +1,8 @@
 # Site settings
 title: DigiTech Solutions
 description: Your Digital Marketing Partner
-baseurl: "/digital-marketing-agency"
-url: "https://sandeepkumar-veeramalla.github.io"
+baseurl: ""
+url: "https://sandeepkumar-veeramalla.github.io/digital-marketing-agency"
 
 # Build settings
 markdown: kramdown
@@ -12,6 +12,23 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-remote-theme
+
+# Default layout
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+
+# Include files
+include:
+  - assets
+  - css
+  - js
+  - images
+  - welcome.html
+  - index.html
 
 # Exclude from processing
 exclude:
@@ -24,22 +41,3 @@ exclude:
   - README.md
   - SECURITY.md
   - LICENSE
-
-# Default layout
-defaults:
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "default"
-
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /:categories/:year/:month/:day/:title/
-
-# Sass settings
-sass:
-  style: compressed
