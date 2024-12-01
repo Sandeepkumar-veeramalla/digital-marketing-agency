@@ -4,79 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to DigiTech Solutions</title>
-    <base href="/digital-marketing-agency/">
+<!-- <base href="/digital-marketing-agency/"> -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/particles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: url('assets/images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a192f 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            position: relative;
-            filter: brightness(1.1);
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
         }
-        .overlay {
+
+        #particles-js {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            z-index: 1;
+        }
+
+        .welcome-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
             background: rgb(0, 0, 0);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            width: 90%;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUpFade 1s ease forwards;
         }
-        .welcome-message {
-            position: relative;
-            font-size: 3.5rem;
+
+        .greeting {
+            font-size: 2.5rem;
             color: #4CAF50;
-            animation: fadeIn 2s, slideIn 2s forwards;
-            text-decoration: none;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
         }
-        .tagline {
-            position: relative;
-            font-size: 1.5rem;
-            color: #ffffff;
-            margin-top: 20px;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+        .welcome-message {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #4CAF50, #81C784);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 1rem 0;
             font-weight: bold;
         }
-        .continue-button {
-            position: relative;
-            margin-top: 20px;
-            padding: 15px 30px;
+
+        .tagline {
             font-size: 1.5rem;
+            color: #ffffff;
+            margin: 1.5rem 0;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .continue-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
             color: white;
-            background-color: #4CAF50;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
             text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
         .continue-button:hover {
-            background-color: #388E3C;
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        @keyframes slideUpFade {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+
+        .time {
+            font-size: 1.2rem;
+            color: #81C784;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-container {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .welcome-message {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <div>
+    <div id="particles-js"></div>
+    <div class="welcome-container">
+        <div class="time" id="current-time"></div>
+        <div class="greeting" id="greeting"></div>
         <div class="welcome-message">Welcome to DigiTech Solutions!</div>
-        <div class="tagline">Your journey to elevate your digital presence starts here.</div>
-        <a href="./index.html" class="continue-button">Continue to Our Services</a>
+        <div class="tagline">Transforming Ideas into Digital Excellence</div>
+        
+<a href="./index.html" class="continue-button">Continue to Main Page</a>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#4CAF50' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#4CAF50',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // Dynamic greeting based on time
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('greeting');
+            let greeting;
+
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good Morning!';
+            } else if (hour >= 12 && hour < 18) {
+                greeting = 'Good Afternoon!';
+            } else {
+                greeting = 'Good Evening!';
+            }
+
+            greetingElement.textContent = greeting;
+        }
+
+        // Update current time
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            timeElement.textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Initial calls and intervals
+        updateGreeting();
+        updateTime();
+        setInterval(updateTime, 1000);
+        setInterval(updateGreeting, 1000 * 60); // Update greeting every minute
+    </script>
 </body>
 </html>

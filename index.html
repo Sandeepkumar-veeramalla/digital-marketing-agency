@@ -13,6 +13,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="assets/js/vanilla-tilt.min.js"></script>
+    <style>
+        /* Add styles for the responsive navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.9);
+                width: 200px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -20,7 +70,8 @@
         <div class="logo" role="banner">
             <span class="title-glow">Digi</span><span class="title-glow">Tech</span>
         </div>
-        <div class="nav-links">
+        <div class="toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+        <div class="nav-links" id="nav-links">
             <a href="#home" class="active">Home</a>
             <a href="#services">Services</a>
             <a href="#portfolio">Portfolio</a>
@@ -237,5 +288,12 @@
     <script src="assets/js/particles.js"></script>
     <script src="assets/js/cursor.js"></script>
     <script src="assets/js/script.js"></script>
+    <script>
+        // Toggle menu visibility
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
 </body>
 </html>
